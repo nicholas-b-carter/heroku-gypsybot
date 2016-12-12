@@ -9,12 +9,13 @@
     "alexa-verifier": "0.0.5",
     "bluebird": "^2.9.34",
     "body-parser": "~1.0.1",
+    "deasync": "*",
     "ejs": "~0.7.1",
     "express": "~4.0.0",
     "hotswap": "^1.1.0",
     "readline-sync": "*",
     "request": "*",
-    "deasync": "*"
+    "utu": "0.0.1"
   },
   "scripts": {
     "start": "node app"
