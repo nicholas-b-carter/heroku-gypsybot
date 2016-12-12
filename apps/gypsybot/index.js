@@ -22,9 +22,23 @@ app.launch(function(req,res) {
   };
   utu.user(user);
   console.log('user: ', user);
-  res.say('What sunsign would you like a horoscope for?  And for the day, week, month, or year?')
+  var message = 'What sunsign would you like a horoscope for?  And for the day, week, month, or year?';
+  res.say(message)
      .reprompt('Please say a sunsign followed by day, week, month, or year.')
-     .shouldEndSession(false)
+     .shouldEndSession(false);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: message,
+     rawMessage: {
+       text: message,
+     },
+     botMessage: false,
+    },
+  });
 });
 
 module.exports = app;
@@ -94,19 +108,6 @@ app.intent('getHoroscope', {
         },
       });
       message = `${greet} horoscope for ${h.sunsign} is... "${h.horoscope}"`;
-      utu.message({
-        platform: utuClient.constants.ALEXA,
-        platformId: appId,
-        userId: req.userId,
-        sessionId: req.sessionId,
-        values: {
-          message: message,
-          rawMessage: {
-            text: message,
-          },
-          botMessage: true,
-        },
-      });
     } else {
       message = "Sorry, I can't find a horoscope for that sunsign.  Try again`?";
       utu.event("Horoscope error: ", {
@@ -124,6 +125,19 @@ app.intent('getHoroscope', {
     message = 'Try again?  Please say a sunsign followed by day, week, month, or year.';
   }
   res.say(message).shouldEndSession(false);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: message,
+     rawMessage: {
+       text: message,
+     },
+     botMessage: true,
+    },
+  });
 });
 
 app.intent('AMAZON.CancelIntent', {
@@ -131,6 +145,19 @@ app.intent('AMAZON.CancelIntent', {
   'utterances': []
 }, function(req,res) {
   res.say('Goodbye.').shouldEndSession(true);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: 'Goodbye.',
+     rawMessage: {
+       text: 'Goodbye.',
+     },
+     botMessage: true,
+    },
+  });
 });
 
 app.intent('AMAZON.StopIntent', {
@@ -140,6 +167,19 @@ app.intent('AMAZON.StopIntent', {
   ]
 }, function(req,res) {
   res.say('Goodbye.').shouldEndSession(true);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: 'Goodbye.',
+     rawMessage: {
+       text: 'Goodbye.',
+     },
+     botMessage: true,
+    },
+  });
 });
 
 app.intent('AMAZON.HelpIntent', {
@@ -157,6 +197,19 @@ app.intent('AMAZON.HelpIntent', {
   and then if you want the horoscope for today, the week, month, or year, GypsyBot
   will tell you your horoscope.`;
   res.say(message).shouldEndSession(false);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: message,
+     rawMessage: {
+       text: message,
+     },
+     botMessage: true,
+    },
+  });
 });
 
 app.intent('exit', {
@@ -175,13 +228,40 @@ app.intent('exit', {
     },
   });
   res.say('Goodbye.').shouldEndSession(true);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: 'Goodbye.',
+     rawMessage: {
+       text: 'Goodbye.',
+     },
+     botMessage: true,
+    },
+  });
 });
 
 app.intent('AMAZON.StartOverIntent', {
   'slots': {},
   'utterances': []
 }, function(req,res) {
-  res.say('Please say a sunsign followed by day, week, month, or year.').shouldEndSession(false);
+  var message = 'Please say a sunsign followed by day, week, month, or year.';
+  res.say(message).shouldEndSession(false);
+  utu.message({
+    platform: utuClient.constants.ALEXA,
+    platformId: appId,
+    userId: req.userId,
+    sessionId: req.sessionId,
+    values: {
+     message: message,
+     rawMessage: {
+       text: message,
+     },
+     botMessage: true,
+    },
+  });
 });
 
 function getHoroscope(sign, hday) {
