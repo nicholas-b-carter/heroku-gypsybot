@@ -20,7 +20,9 @@ app.launch(function(req,res) {
       lastSeen: new Date(),
     },
   };
-  utu.user(user);
+  
+  utu.user(user).then((res) => console.log(res)).catch((err) => console.log(err));
+
   console.log('user: ', user);
   var message = 'What sunsign would you like a horoscope for?  And for the day, week, month, or year?';
   res.say(message)
