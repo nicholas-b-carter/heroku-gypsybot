@@ -2,6 +2,9 @@
   "name": "gypsybot",
   "version": "1.0.0",
   "main": "index.js",
+  "alexa": {
+       "applicationId":"amzn1.ask.skill.314479d6-a797-45cf-8f59-28d17c663fa4"
+     },
   "dependencies": {
     "alexa-app": "^2.1.0",
     "readline-sync": "*",
