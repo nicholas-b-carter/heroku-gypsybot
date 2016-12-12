@@ -24,7 +24,7 @@ app.intent('getHoroscope', {
     '{get| what is} {the|this|} {-|Hday|} horoscope for {-|SunSign}',
   ]
 }, function(req,res) {
-  var sign = req.slot('Sign');
+  var sign = req.slot('SunSign');
   var hday = req.slot('Hday') || '';
   console.log('have sign: ', sign, ' and day: ', hday);
   if (sign) {
@@ -47,9 +47,9 @@ app.intent('getHoroscope', {
           greet = 'The yearly ';
           break;
         default:
-          greet = "Today's ";
+          greet = `Today's, ${h.date}, `;
       }
-      message = `${greet} horoscope for ${h.sunsign} on ${h.date} is ${h.horoscope}`;
+      message = `${greet} horoscope for ${h.sunsign} is... "${h.horoscope}"`;
     } else {
       message = "Sorry, I can't find a horoscope for that sunsign.  Try again`?";
     }
