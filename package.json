@@ -16,6 +16,9 @@
     "request": "*",
     "deasync": "*"
   },
+  "scripts": {
+    "start": "node app"
+  },
   "devDependencies": {
     "supervisor": "^0.6.0"
   }
