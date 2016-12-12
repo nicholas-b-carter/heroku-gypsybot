@@ -26,15 +26,14 @@ app.intent('getHoroscope', {
 }, function(req,res) {
   var sign = req.slot('SunSign');
   var hday = req.slot('Hday') || '';
-  console.log('have sign: ', sign, ' and day: ', hday);
+  // console.log('have sign: ', sign, ' and day: ', hday);
   if (sign) {
     var message = '';
     sign = sign.replace(/,\s*$/, '');
-    console.log('calling getHoroscope...');
+    // console.log('calling getHoroscope...');
     var h = getHoroscope(sign, hday);
-    console.log('horoscope: ', h);
+    // console.log('horoscope: ', h);
     if (!h.error) {
-      res.session('horoscope', h);
       var greet = '';
       switch (h.day) {
         case "week":
@@ -58,32 +57,6 @@ app.intent('getHoroscope', {
   }
   res.say(message).shouldEndSession(false);
 } );
-
-// app.intent('getSign', {
-//   'slots': {
-//     'BirthDate': 'BIRTHDATE',
-//   },
-//   'utterances': [
-//     'what is the sign for {}',
-//   ]
-// }, function(req,res) {
-//   var message = '';
-//   var birthdate = req.slot('BirthDate');
-//   if (birthdate) {
-//     var message = '';
-//     birthdate = birthdate.replace(/,\s*$/, '');
-//     var sign = getSign(birthdate);
-//     if (!sign.error) {
-//       res.session('sign', sign);
-//       message = 'Ok. I found your sign ' + sign;
-//     } else {
-//       message = "Sorry, I can't find a sign for that date.  Whats the birthdate again?";
-//     }
-//   } else {
-//     message = 'Please repeat the birthdate again.';
-//   }
-//   res.say(message).shouldEndSession(false); }
-// );
 
 app.intent('AMAZON.CancelIntent', {
   'slots': {},
@@ -129,7 +102,6 @@ app.intent('AMAZON.StartOverIntent', {
 
 function getHoroscope(sign, hday) {
   var horoscope = null;
-  //today, week, month, year
   var myDate = 'today';
   switch (hday) {
     case 'week':
@@ -144,11 +116,11 @@ function getHoroscope(sign, hday) {
     default:
   }
   var url = 'http://horoscope-api.herokuapp.com/horoscope/' + myDate + '/' + sign;
-  console.log('url: ', url);
+  // console.log('url: ', url);
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       body = JSON.parse(body)
-      console.log('body json: ', body);
+      // console.log('body json: ', body);
       horoscope = {
         day: myDate,
         date: body.date,
