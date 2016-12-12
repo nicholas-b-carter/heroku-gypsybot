@@ -20,8 +20,8 @@ app.intent('getHoroscope', {
   },
   'utterances': [
     'get {a|the|} horoscope for {-|SunSign}',
-    'get {-|SunSign} {horoscope|} for {-|Hday|}',
-    '{get| what is} {the|this|} {-|Hday|} horoscope for {-|SunSign}',
+    'get {-|SunSign} {horoscope|} for {-|Hday}',
+    '{get| what is} {the|this|} {-|Hday} horoscope for {-|SunSign}',
   ]
 }, function(req,res) {
   var sign = req.slot('SunSign');
