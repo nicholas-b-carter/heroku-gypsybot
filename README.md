@@ -1,5 +1,7 @@
 # alexa-app-server
 
+Simple GipsyBot Bot...
+
 An Alexa App (Skill) Server module using Node.js and the [alexa-app](https://www.npmjs.com/package/alexa-app) module
 
 ## Installation
@@ -36,7 +38,7 @@ To be clear: This is the container to easily host multiple apps. This module doe
   - Each app must export its alexa-app instance to be loaded into the server
   - package.json contains information about the app, including (optionally) the appId
   - The hotswap module reloads code changes to apps, if they set module.change_code=1
-- Built-in Echo Simulator 
+- Built-in Echo Simulator
   - Debug apps by issuing a GET request to the app endpoints
   - Send simulated requests to your app, view the JSON response
   - Session variables are automatically maintained between requests
@@ -66,53 +68,53 @@ The start() method accepts a configuration object. The defaults are shown below.
 ```javascript
 require('alexa-app-server').start({
 	// In order to start the server from a working directory other than
-	// where your server.js file, you need to provide Node the full path 
+	// where your server.js file, you need to provide Node the full path
 	// to your server's root directory. The easiest way is to use  __dirname
 	server_root : __dirname,
-	
+
 	// A directory containing static content to serve as the document root.
-    // This directory is relative to the script using alexa-app-server, not 
+    // This directory is relative to the script using alexa-app-server, not
 	// relative to the module directory.
     public_html : "public_html",
-    
-    // A directory containing Alexa Apps. This directory should contain one 
-	// or more subdirectories. Each subdirectory is a stand-alone Alexa App 
-	// built with the alexa-app framework. These directories are each 
+
+    // A directory containing Alexa Apps. This directory should contain one
+	// or more subdirectories. Each subdirectory is a stand-alone Alexa App
+	// built with the alexa-app framework. These directories are each
 	// processed during server startup and hooked into the server.
     app_dir : "apps",
-    
-    // The prefix to use for all Alexa Apps. For example, you may want all 
-	// your Alexa endpoints to be accessed under the "/api/" path off the 
+
+    // The prefix to use for all Alexa Apps. For example, you may want all
+	// your Alexa endpoints to be accessed under the "/api/" path off the
 	// root of your web server.
     app_root : "/alexa/",
-	
+
 	// The directory containing server-side processing modules (see below)
 	server_dir : "server",
-    
+
     // The port the server should bind to
     port : 80,
-    
-    // By default, GET requests to Alexa App endpoints will show the 
+
+    // By default, GET requests to Alexa App endpoints will show the
 	// debugger UI. This can be disabled.
     debug : true,
-    
+
     // By default, some information is logged with console.log(), which can be disabled
     log : true,
-    
+
     // This will add verification for alexa requests as require by the alexa certification
     // process. Provied by alexa-verifier
     verify: false,
-    
-    // The pre() method is called after the express server has been instantiated, 
-	// but before and Alexa Apps have been loaded. It is passed the AlexaAppServer 
+
+    // The pre() method is called after the express server has been instantiated,
+	// but before and Alexa Apps have been loaded. It is passed the AlexaAppServer
 	// object itself.
     pre : function(appServer) { },
-    
-    // The post() method is called after the server has started and the start() method 
+
+    // The post() method is called after the server has started and the start() method
 	// is ready to exit. It is passed the AlexaAppServer object itself.
     post : function(appServer) { },
-	
-	// Like pre(), but this function is fired on every request, but before the 
+
+	// Like pre(), but this function is fired on every request, but before the
 	// application itself gets called. You can use this to load up user details before
 	// every request, for example, and insert it into the json request itself for
 	// the application to use.
@@ -121,8 +123,8 @@ require('alexa-app-server').start({
 	// If it returns a Promise, request processing pauses until the Promise resolves.
 	//    The value passed on by the promise (if any) replaces the request json.
 	preRequest : function(json,request,response) { },
-	
-	// Like post(), but this function is fired after every request. It has a final 
+
+	// Like post(), but this function is fired after every request. It has a final
 	// opportunity to modify the JSON response before it is returned back to the
 	// Alexa service.
 	// If it returns a falsy value, the response json is not changed.
@@ -130,23 +132,23 @@ require('alexa-app-server').start({
 	// If it returns a Promise, response processing pauses until the Promise resolves.
 	//    The value passed on by the promise (if any) replaces the response json.
 	postRequest : function(json,request,response) { },
-	
+
 	//Enables https support. Note httpsPort, privateKey, and certificate are needed.
 	httpsEnabled : true,
-	
+
 	//The https port the server will bind to. No default. Must be set if httpsEnable = true
 	httpsPort : 443,
-	
+
 	//privateKey filename. This file must reside in the sslcert folder under the root of the project. Must be set if httpsEnable = true
 	privateKey:'private-key.key',
-	
+
 	//certificate filename. This file must reside in the sslcert folder under the root of the project. Must be set if httpsEnable = true
 	certificate:'cert.cer'
 
 });
 ```
 
-## Enabling HTTPS 
+## Enabling HTTPS
 
 You can enable HTTPS support for the app-server using the instructions below.
 
@@ -159,7 +161,7 @@ openssl req -new -x509 -key private-key.pem -out cert.cer -days 365 --generates 
 ```
 
 Then add the following properties the to config (currently in server.js) that creates the server. Place the two generated files in the sslcert directory.
-	
+
 ```javascript
 AlexaAppServer.start( {
 	httpsPort:443,
@@ -237,12 +239,12 @@ See example application in the "examples" directory.
 
 - 2.2.4 - Sep 13, 2015
   - Added HTTPS Support
-  
+
 - 2.2.3 - Aug 19, 2015
   - Added the ability to retrieve schema and utterances output directly using url parameters
     - Example: /your/app/endpoint?schema
 
 - 2.2.2 - Aug 18, 2015
   - Changed preRequest() and postRequest() to allow them to return a Promise if they perform async operations
-  
+
 # heroku-gypsybot

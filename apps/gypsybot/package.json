@@ -1,0 +1,11 @@
+{
+  "name": "gypsybot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "alexa-app": "^2.1.0",
+    "readline-sync": "*",
+    "request": "*",
+    "deasync": "*"
+  }
+}
