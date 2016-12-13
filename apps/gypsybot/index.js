@@ -12,15 +12,16 @@ var utu = new utuClient.Client('7673f5d1298f4c6596458d8dca5a5968');
 app.launch(function(req,res) {
   var user = {
     platform: utuClient.constants.ALEXA,
-    platformId: appId,
-    userId: req.userId,
-    sessionId: req.sessionId,
+    platformId: req.userId,
+    // 1. xxxx: appId,  //what do we do w/ this?
     values: {
-      firstSeen: new Date(),  // can this be a set once value?
-      lastSeen: new Date(),
+      // 2.
+      // we derive on server side
+      // firstSeen: new Date(),
+      // lastSeen: new Date(),
     },
   };
-  
+
   utu.user(user).then((res) => console.log(res)).catch((err) => console.log(err));
 
   console.log('user: ', user);
@@ -30,15 +31,15 @@ app.launch(function(req,res) {
      .shouldEndSession(false);
   utu.message({
     platform: utuClient.constants.ALEXA,
-    platformId: appId,
-    userId: req.userId,
-    sessionId: req.sessionId,
+    platformId: req.userId,
+    // 1. xxxx: appId,  //what do we do w/ this?
     values: {
-     message: message,
-     rawMessage: {
+      sessionId: req.sessionId,
+      message: message,
+      rawMessage: {
        text: message,
-     },
-     botMessage: false,
+      },
+      botMessage: true,
     },
   });
 });
@@ -60,10 +61,10 @@ app.intent('getHoroscope', {
   var hday = req.slot('Hday') || '';
   utu.message({
     platform: utuClient.constants.ALEXA,
-    platformId: appId,
-    userId: req.userId,
-    sessionId: req.sessionId,
+    platformId: req.userId,
+    // userId: req.userId,
     values: {
+      sessionId: req.sessionId,
       message: `${sign} ${hday}`,
       rawMessage: {
         text:  `${sign} ${hday}`,
@@ -76,9 +77,9 @@ app.intent('getHoroscope', {
     sign = sign.replace(/,\s*$/, '');
     utu.event("Asked for Horoscope", {
       platform: utuClient.constants.ALEXA,
-      platformId: appId,
-      userId: req.userId,
-      sessionId: req.sessionId,
+      platformId: req.userId,
+      // userId: req.userId,
+      // sessionId: req.sessionId,
       values: {
         "sign": sign,
         "type": hday,
@@ -102,10 +103,11 @@ app.intent('getHoroscope', {
       }
       utu.event("Gave Horoscope", {
         platform: utuClient.constants.ALEXA,
-        platformId: appId,
-        userId: req.userId,
-        sessionId: req.sessionId,
+        platformId: req.userId,
+        // userId: req.userId,
+        // sessionId: req.sessionId,
         values: {
+          sessionId: req.sessionId,
           "horoscope": h.horoscope,
         },
       });
@@ -114,10 +116,11 @@ app.intent('getHoroscope', {
       message = "Sorry, I can't find a horoscope for that sunsign.  Try again`?";
       utu.event("Horoscope error: ", {
         platform: utuClient.constants.ALEXA,
-        platformId: appId,
-        userId: req.userId,
-        sessionId: req.sessionId,
+        platformId: req.userId,
+        // userId: req.userId,
+        // sessionId: req.sessionId,
         values: {
+          sessionId: req.sessionId,
           "sign": sign,
           "type": hday,
         },
@@ -129,10 +132,10 @@ app.intent('getHoroscope', {
   res.say(message).shouldEndSession(false);
   utu.message({
     platform: utuClient.constants.ALEXA,
-    platformId: appId,
-    userId: req.userId,
-    sessionId: req.sessionId,
+    platformId: req.userId,
+    // userId: req.userId,
     values: {
+     sessionId: req.sessionId,
      message: message,
      rawMessage: {
        text: message,
