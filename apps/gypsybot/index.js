@@ -7,7 +7,7 @@ var utuClient = require('utu');
 var appId = 'amzn1.ask.skill.314479d6-a797-45cf-8f59-28d17c663fa4';
 
 var app = new alexa.app('gypsybot');
-var utu = new utuClient.Client('7673f5d1298f4c6596458d8dca5a5968');
+var utu = new utuClient.Client('e06c437503754c9e96238e88cff2877c');
 
 app.launch(function(req,res) {
   var user = {
