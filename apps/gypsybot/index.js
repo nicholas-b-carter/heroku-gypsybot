@@ -15,6 +15,12 @@ app.launch(function(req,res) {
     platformId: req.userId,
     // 1. xxxx: appId,  //what do we do w/ this?
     values: {
+      firstName: 'Jimmie',
+      lastName: 'Butler',
+      location: 'Philadelphia',
+      favoriteColor: 'Blue',
+      hobbies: 'Cooking, Hiking',
+      email: 'jimmie@utu.ai'
       // 2.
       // we derive on server side
       // firstSeen: new Date(),
